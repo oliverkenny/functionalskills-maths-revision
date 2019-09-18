@@ -19,7 +19,9 @@ namespace SubtractionProgram
 				play = GetPlayAgain();
 			}
 
-			Console.WriteLine("Thank you for using the Subtraction Program!");
+			Console.WriteLine("Thank you for using the Subtraction Program!\n" +
+							  "Press any key to exit...");
+			Console.ReadKey();
 		}
 
 		public static void SetDifficulty()

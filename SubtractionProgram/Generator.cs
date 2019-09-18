@@ -1,4 +1,5 @@
 ﻿using System;
+using static SubtractionProgram.Enums;
 
 namespace SubtractionProgram
 {

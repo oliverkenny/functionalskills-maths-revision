@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace SubtractionProgram
 {
@@ -18,6 +18,21 @@ namespace SubtractionProgram
 			Minuend,
 			Subtrahend,
 			Difference
+		}
+
+		public enum Subject
+		{
+			Subtraction,
+			//Percentages
+		}
+
+		public static List<T> EnumToList<T>()
+		{
+			if (!typeof(T).IsEnum)
+			{
+				throw new ArgumentException("Type must be an enum.");
+			}
+			return Enum.GetValues(typeof(T)).OfType<T>().ToList();
 		}
 	}
 }

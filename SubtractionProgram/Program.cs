@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using static SubtractionProgram.Enums;
 
 namespace SubtractionProgram
@@ -13,15 +15,50 @@ namespace SubtractionProgram
 			var play = true;
 			while (play)
 			{
+				SetSubject(generator);
 				SetDifficulty(generator);
 				SetQuestionCount(generator);
-				AskQuestions(generator);
+				switch (generator.Subject) {
+					case Subject.Subtraction:
+						AskSubtractionQuestions(generator);
+						break;
+					default:
+						throw new ArgumentOutOfRangeException(paramName: nameof(generator.Subject), message:"Subject is not valid.");
+				}
 				play = GetPlayAgain();
 			}
 
-			Console.WriteLine("Thank you for using the Subtraction Program!\n" +
+			Console.WriteLine("\nThank you for using the Subtraction Program!\n" +
 							  "Press any key to exit...");
 			Console.ReadKey();
+		}
+
+		public static void SetSubject(Generator generator)
+		{
+			var chosenSubject = false;
+			while (!chosenSubject)
+			{
+				List<Subject> subjects = EnumToList<Subject>();
+				Console.Write("Please select a subject:\n");
+				for (int i = 0; i < subjects.Count(); i++)
+				{
+					Console.WriteLine($"[{i + 1}] {subjects.ElementAt(i).ToString()}");
+				}
+				Console.Write("Selection: ");
+				try {
+					var selection = Convert.ToInt32(Console.ReadLine());
+					if (selection < 1 || selection > subjects.Count()) {
+						throw new ArgumentOutOfRangeException(paramName: nameof(selection), message: "The option you selected doesn't exist. Please try again.");
+					}
+					generator.SetSubject(subjects.ElementAt(selection-1));
+					chosenSubject = true;
+				} catch (FormatException) {
+					Console.WriteLine("The value you entered was invalid.");
+				} catch (ArgumentOutOfRangeException aore) {
+					Console.WriteLine(aore.Message);
+				}
+			}
+			Console.WriteLine($"You have chosen to practice {generator.Subject.ToString().ToLower()}.\n");
 		}
 
 		public static void SetDifficulty(Generator generator)
@@ -89,14 +126,14 @@ namespace SubtractionProgram
 			}
 		}
 
-		public static void AskQuestions(Generator generator)
+		public static void AskSubtractionQuestions(Generator generator)
 		{
 			var questionCount = generator.QuestionCount;
 			var currentQuestion = 1;
 
 			while (currentQuestion <= questionCount)
 			{
-				Problem p = generator.GetNewProblem();
+				SubtractionProblem p = generator.GetNewProblem();
 				var isCorrect = false;
 				while (!isCorrect)
 				{
@@ -136,7 +173,7 @@ namespace SubtractionProgram
 			return false;
 		}
 
-		public static void PrintQuestion(Problem p, int questionNumber)
+		public static void PrintQuestion(SubtractionProblem p, int questionNumber)
 		{
 			switch (p.MissingPart)
 			{

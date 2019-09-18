@@ -7,6 +7,7 @@ namespace SubtractionProgram
 	{
 		public Difficulty Difficulty { get; set; }
 		public int QuestionCount { get; set; }
+		public Subject Subject { get; private set; }
 
 		public Generator(Difficulty difficulty = Difficulty.Medium, int questionCount = 10)
 		{
@@ -14,14 +15,19 @@ namespace SubtractionProgram
 			this.QuestionCount = questionCount;
 		}
 
+		public void SetSubject(Subject subject)
+		{
+			this.Subject = subject;
+		}
+
 		public void SetQuestionCount(int qc)
 		{
 			this.QuestionCount = qc;
 		}
 
-		public Problem GetNewProblem()
+		public SubtractionProblem GetNewProblem()
 		{
-			Problem problem = new Problem();
+			SubtractionProblem problem = new SubtractionProblem();
 			Random rand = new Random();
 			int[] easy = { 1, 15 };
 			int[] medium = { 15, 50 };
@@ -61,7 +67,7 @@ namespace SubtractionProgram
 			return problem;
 		}
 
-		public bool IsCorrect(Problem p, int answer)
+		public bool IsCorrect(SubtractionProblem p, int answer)
 		{
 			switch (p.MissingPart)
 			{

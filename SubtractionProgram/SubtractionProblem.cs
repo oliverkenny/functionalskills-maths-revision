@@ -2,7 +2,7 @@
 
 namespace SubtractionProgram
 {
-	public class Problem
+	public class SubtractionProblem
 	{
 		public int Minuend { get; set; }
 		public int Subtrahend { get; set; }

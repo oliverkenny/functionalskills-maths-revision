@@ -144,9 +144,6 @@ namespace SubtractionProgram
 				case ProblemPart.Subtrahend:
 					Console.WriteLine($"({questionNumber}). {p.Minuend} - _ = {p.Difference}");
 					break;
-				case ProblemPart.Difference:
-					Console.WriteLine($"({questionNumber}). {p.Minuend} - {p.Subtrahend} = _");
-					break;
 				default:
 					throw new ArgumentOutOfRangeException(paramName: nameof(p.MissingPart), message: "Error printing question.");
 			}
@@ -203,9 +200,6 @@ namespace SubtractionProgram
 					break;
 				case 1:
 					problem.MissingPart = ProblemPart.Subtrahend;
-					break;
-				case 2:
-					problem.MissingPart = ProblemPart.Difference;
 					break;
 				default:
 					throw new Exception("Missing part generated was not valid.");

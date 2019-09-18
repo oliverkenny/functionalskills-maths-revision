@@ -5,18 +5,17 @@ namespace SubtractionProgram
 {
 	class Program
 	{
-		public static Generator Generator { get; set; }
-
 		static void Main(string[] args)
 		{
 			Console.WriteLine("Welcome to the Subtraction Program!");
 
+			Generator generator = new Generator();
 			var play = true;
 			while (play)
 			{
-				SetDifficulty();
-				SetQuestionCount();
-				AskQuestions();
+				SetDifficulty(generator);
+				SetQuestionCount(generator);
+				AskQuestions(generator);
 				play = GetPlayAgain();
 			}
 
@@ -25,7 +24,7 @@ namespace SubtractionProgram
 			Console.ReadKey();
 		}
 
-		public static void SetDifficulty()
+		public static void SetDifficulty(Generator generator)
 		{
 			var chosenDifficulty = false;
 			while (!chosenDifficulty)
@@ -36,15 +35,15 @@ namespace SubtractionProgram
 				switch (intDifficulty)
 				{
 					case "1":
-						Generator = new Generator(Difficulty.Easy);
+						generator.Difficulty = Difficulty.Easy;
 						chosenDifficulty = true;
 						break;
 					case "2":
-						Generator = new Generator(Difficulty.Medium);
+						generator.Difficulty = Difficulty.Medium;
 						chosenDifficulty = true;
 						break;
 					case "3":
-						Generator = new Generator(Difficulty.Hard);
+						generator.Difficulty = Difficulty.Hard;
 						chosenDifficulty = true;
 						break;
 					default:
@@ -52,12 +51,12 @@ namespace SubtractionProgram
 						break;
 				}
 			}
-			Console.WriteLine($"You chose {Generator.Difficulty.ToString().ToLower()} difficulty.\n");
+			Console.WriteLine($"You chose {generator.Difficulty.ToString().ToLower()} difficulty.\n");
 		}
 
-		public static void SetQuestionCount()
+		public static void SetQuestionCount(Generator generator)
 		{
-			Console.Write($"The default question count is {Generator.QuestionCount}, would you like to change this? [Yes=Y, No=N]: ");
+			Console.Write($"The default question count is {generator.QuestionCount}, would you like to change this? [Yes=Y, No=N]: ");
 			var changeQuestionCount = Console.ReadLine();
 			if (changeQuestionCount.ToLower() == "y" || changeQuestionCount.ToLower() == "yes")
 			{
@@ -73,7 +72,7 @@ namespace SubtractionProgram
 						{
 							throw new ArgumentOutOfRangeException(paramName: nameof(questionCount), message: "Your question count was not within 1 and 99. Please try again.");
 						}
-						Generator.SetQuestionCount(questionCount);
+						generator.SetQuestionCount(questionCount);
 						hasChangedQuestionCount = true;
 					}
 					catch (FormatException ice)
@@ -86,18 +85,18 @@ namespace SubtractionProgram
 					}
 				}
 
-				Console.WriteLine($"Question count is now set to {Generator.QuestionCount}.\n");
+				Console.WriteLine($"Question count is now set to {generator.QuestionCount}.\n");
 			}
 		}
 
-		public static void AskQuestions()
+		public static void AskQuestions(Generator generator)
 		{
-			var questionCount = Generator.QuestionCount;
+			var questionCount = generator.QuestionCount;
 			var currentQuestion = 1;
 
 			while (currentQuestion <= questionCount)
 			{
-				Problem p = Generator.GetNewProblem();
+				Problem p = generator.GetNewProblem();
 				var isCorrect = false;
 				while (!isCorrect)
 				{
@@ -120,7 +119,7 @@ namespace SubtractionProgram
 					// Work out if answer is correct
 					if (validAnswer)
 					{
-						isCorrect = Generator.IsCorrect(p, answer);
+						isCorrect = generator.IsCorrect(p, answer);
 						Console.WriteLine(isCorrect ? "Correct!" : "Not quite right. Try again.");
 					}
 				}

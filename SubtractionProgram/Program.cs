@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SubtractionProgram.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using static SubtractionProgram.Enums;
@@ -38,7 +39,7 @@ namespace SubtractionProgram
 			var chosenSubject = false;
 			while (!chosenSubject)
 			{
-				List<Subject> subjects = EnumToList<Subject>();
+				List<Subject> subjects = EnumExtensions.SubjectToList();
 				Console.Write("Please select a subject:\n");
 				for (int i = 0; i < subjects.Count(); i++)
 				{

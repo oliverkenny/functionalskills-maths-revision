@@ -16,10 +16,17 @@
 			Difference
 		}
 
+		public enum PercentageProblemPart
+		{
+			Amount,
+			Percent,
+			Base
+		}
+
 		public enum Subject
 		{
 			Subtraction,
-			//Percentages
+			Percentages
 		}
 	}
 }

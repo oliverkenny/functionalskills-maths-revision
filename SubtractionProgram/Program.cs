@@ -25,6 +25,9 @@ namespace SubtractionProgram
 					case Subject.Subtraction:
 						AskSubtractionQuestions(generator);
 						break;
+					case Subject.Percentages:
+						AskPercentageQuestion(generator);
+						break;
 					default:
 						throw new ArgumentOutOfRangeException(paramName: nameof(generator.Subject), message:"Subject is not valid.");
 				}
@@ -140,7 +143,47 @@ namespace SubtractionProgram
 				while (!isCorrect)
 				{
 					// Ask question
-					PrintQuestion(p, currentQuestion);
+					p.PrintQuestion(currentQuestion);
+
+					// Get answer
+					Console.Write("Answer: ");
+					int answer = 0;
+					bool validAnswer = true;
+					try
+					{
+						answer = Convert.ToInt32(Console.ReadLine());
+					}
+					catch (Exception)
+					{
+						validAnswer = false;
+					}
+
+					// Work out if answer is correct
+					if (validAnswer)
+					{
+						isCorrect = subject.IsCorrect(p, answer);
+						Console.WriteLine(isCorrect ? "Correct!" : "Not quite right. Try again.");
+					}
+				}
+
+				currentQuestion++;
+			}
+		}
+
+		public static void AskPercentageQuestion(Generator generator)
+		{
+			Percentages subject = new Percentages();
+			var questionCount = generator.QuestionCount;
+			var currentQuestion = 1;
+
+			while (currentQuestion <= questionCount)
+			{
+				PercentageProblem p = (PercentageProblem)subject.GenerateQuestion(generator.Difficulty);
+				var isCorrect = false;
+				while (!isCorrect)
+				{
+					// Ask question
+					p.PrintQuestion(currentQuestion);
 
 					// Get answer
 					Console.Write("Answer: ");
@@ -173,21 +216,6 @@ namespace SubtractionProgram
 			var playAgain = Console.ReadLine();
 			if (playAgain.ToLower() == "yes" || playAgain.ToLower() == "y") return true;
 			return false;
-		}
-
-		public static void PrintQuestion(SubtractionProblem p, int questionNumber)
-		{
-			switch (p.MissingPart)
-			{
-				case ProblemPart.Minuend:
-					Console.WriteLine($"({questionNumber}). _ - {p.Subtrahend} = {p.Difference}");
-					break;
-				case ProblemPart.Subtrahend:
-					Console.WriteLine($"({questionNumber}). {p.Minuend} - _ = {p.Difference}");
-					break;
-				default:
-					throw new ArgumentOutOfRangeException(paramName: nameof(p.MissingPart), message: "Error printing question.");
-			}
 		}
 	}
 }

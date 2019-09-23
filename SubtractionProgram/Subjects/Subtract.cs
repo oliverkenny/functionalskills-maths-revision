@@ -47,16 +47,19 @@ namespace SubtractionProgram.Subjects
 
 			return problem;
 		}
-		public override bool IsCorrect(SubtractionProblem problem, int answer)
+
+		public override bool IsCorrect(object problem, int answer)
 		{
-			switch (problem.MissingPart)
+			SubtractionProblem p = (SubtractionProblem)problem;	
+
+			switch (p.MissingPart)
 			{
 				case ProblemPart.Minuend:
-					return problem.Minuend == answer;
+					return p.Minuend == answer;
 				case ProblemPart.Subtrahend:
-					return problem.Subtrahend == answer;
+					return p.Subtrahend == answer;
 				case ProblemPart.Difference:
-					return problem.Difference == answer;
+					return p.Difference == answer;
 				default:
 					return false;
 			}

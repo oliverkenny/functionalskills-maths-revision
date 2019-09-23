@@ -1,0 +1,9 @@
+﻿
+======  SCRATCH =======
+
+Percentages:
+	10 is 10% of 100
+	_ is 10% of 100
+	10 is _% of 100
+	10 is 10% of _
+

@@ -53,10 +53,8 @@ namespace SubtractionProgram
 					}
 					generator.SetSubject(subjects.ElementAt(selection-1));
 					chosenSubject = true;
-				} catch (FormatException) {
-					Console.WriteLine("The value you entered was invalid.");
-				} catch (ArgumentOutOfRangeException aore) {
-					Console.WriteLine(aore.Message);
+				} catch (Exception) {
+					Console.WriteLine(Constants.StrInvalidValue);
 				}
 			}
 			Console.WriteLine($"You have chosen to practice {generator.Subject.ToString().ToLower()}.\n");
@@ -85,7 +83,7 @@ namespace SubtractionProgram
 						chosenDifficulty = true;
 						break;
 					default:
-						Console.WriteLine($"{intDifficulty} is not a valid difficulty, please enter either 1, 2, or 3.");
+						Console.WriteLine(Constants.StrInvalidValue);
 						break;
 				}
 			}
@@ -115,11 +113,11 @@ namespace SubtractionProgram
 					}
 					catch (FormatException ice)
 					{
-						Console.WriteLine("The value you entered was invalid. Please try again.");
+						Console.WriteLine(Constants.StrInvalidValue);
 					}
-					catch (ArgumentOutOfRangeException aore)
+					catch (ArgumentOutOfRangeException)
 					{
-						Console.WriteLine(aore.Message);
+						Console.WriteLine(Constants.StrValueOutOfRange);
 					}
 				}
 

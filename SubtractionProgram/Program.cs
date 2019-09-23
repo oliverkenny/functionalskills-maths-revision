@@ -1,4 +1,6 @@
 ﻿using SubtractionProgram.Extensions;
+using SubtractionProgram.Problems;
+using SubtractionProgram.Subjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -127,12 +129,13 @@ namespace SubtractionProgram
 
 		public static void AskSubtractionQuestions(Generator generator)
 		{
+			Subtract subject = new Subtract();
 			var questionCount = generator.QuestionCount;
 			var currentQuestion = 1;
 
 			while (currentQuestion <= questionCount)
 			{
-				SubtractionProblem p = generator.GetNewProblem();
+				SubtractionProblem p = (SubtractionProblem)subject.GenerateQuestion(generator.Difficulty);
 				var isCorrect = false;
 				while (!isCorrect)
 				{
@@ -155,7 +158,7 @@ namespace SubtractionProgram
 					// Work out if answer is correct
 					if (validAnswer)
 					{
-						isCorrect = generator.IsCorrect(p, answer);
+						isCorrect = subject.IsCorrect(p, answer);
 						Console.WriteLine(isCorrect ? "Correct!" : "Not quite right. Try again.");
 					}
 				}

@@ -1,6 +1,6 @@
 ﻿using static SubtractionProgram.Enums;
 
-namespace SubtractionProgram
+namespace SubtractionProgram.Problems
 {
 	public class SubtractionProblem
 	{

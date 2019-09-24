@@ -10,10 +10,10 @@ namespace SubtractionProgram.Extensions
 		{
 			switch (sp.MissingPart)
 			{
-				case ProblemPart.Minuend:
+				case SubtractionProblemPart.Minuend:
 					Console.WriteLine($"({questionNumber}) _ - {sp.Subtrahend} = {sp.Difference}");
 					break;
-				case ProblemPart.Subtrahend:
+				case SubtractionProblemPart.Subtrahend:
 					Console.WriteLine($"({questionNumber}) {sp.Minuend} - _ = {sp.Difference}");
 					break;
 				default:

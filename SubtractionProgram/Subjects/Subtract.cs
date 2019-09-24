@@ -36,10 +36,10 @@ namespace SubtractionProgram.Subjects
 			switch (rand.Next(2))
 			{
 				case 0:
-					problem.MissingPart = ProblemPart.Minuend;
+					problem.MissingPart = SubtractionProblemPart.Minuend;
 					break;
 				case 1:
-					problem.MissingPart = ProblemPart.Subtrahend;
+					problem.MissingPart = SubtractionProblemPart.Subtrahend;
 					break;
 				default:
 					throw new Exception("Missing part generated was not valid.");
@@ -54,11 +54,11 @@ namespace SubtractionProgram.Subjects
 
 			switch (p.MissingPart)
 			{
-				case ProblemPart.Minuend:
+				case SubtractionProblemPart.Minuend:
 					return p.Minuend == answer;
-				case ProblemPart.Subtrahend:
+				case SubtractionProblemPart.Subtrahend:
 					return p.Subtrahend == answer;
-				case ProblemPart.Difference:
+				case SubtractionProblemPart.Difference:
 					return p.Difference == answer;
 				default:
 					return false;

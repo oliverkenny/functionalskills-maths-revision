@@ -9,7 +9,7 @@
 			Hard
 		}
 
-		public enum ProblemPart
+		public enum SubtractionProblemPart
 		{
 			Minuend,
 			Subtrahend,

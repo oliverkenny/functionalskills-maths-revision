@@ -21,7 +21,7 @@ namespace SubtractionProgram.Problems
 					Console.WriteLine($"({questionNumber}) {this.Minuend} - _ = {this.Difference}");
 					break;
 				default:
-					throw new ArgumentOutOfRangeException(paramName: nameof(this.MissingPart), message: "Error printing question.");
+					throw new ArgumentOutOfRangeException(paramName: nameof(this.MissingPart), message: $"Missing Part is '{this.MissingPart}'.");
 			}
 		}
 	}

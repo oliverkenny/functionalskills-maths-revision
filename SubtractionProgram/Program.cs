@@ -21,22 +21,28 @@ namespace SubtractionProgram
 				SetSubject(generator);
 				SetDifficulty(generator);
 				SetQuestionCount(generator);
-				switch (generator.Subject) {
-					case Subject.Subtraction:
-						AskSubtractionQuestions(generator);
-						break;
-					case Subject.Percentages:
-						AskPercentageQuestion(generator);
-						break;
-					default:
-						throw new ArgumentOutOfRangeException(paramName: nameof(generator.Subject), message:"Subject is not valid.");
-				}
+				AskQuestion(generator);
 				play = GetPlayAgain();
 			}
 
 			Console.WriteLine("\nThank you for using the Subtraction Program!\n" +
 							  "Press any key to exit...");
 			Console.ReadKey();
+		}
+
+		public static void AskQuestion(Generator generator)
+		{
+			switch (generator.Subject)
+			{
+				case Subject.Subtraction:
+					AskSubtractionQuestions(generator);
+					break;
+				case Subject.Percentages:
+					AskPercentageQuestion(generator);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(paramName: nameof(generator.Subject), message: "Subject is not valid.");
+			}
 		}
 
 		public static void SetSubject(Generator generator)
@@ -51,14 +57,18 @@ namespace SubtractionProgram
 					Console.WriteLine($"[{i + 1}] {subjects.ElementAt(i).ToString()}");
 				}
 				Console.Write("Selection: ");
-				try {
+				try
+				{
 					var selection = Convert.ToInt32(Console.ReadLine());
-					if (selection < 1 || selection > subjects.Count()) {
+					if (selection < 1 || selection > subjects.Count())
+					{
 						throw new ArgumentOutOfRangeException(paramName: nameof(selection), message: "The option you selected doesn't exist. Please try again.");
 					}
-					generator.SetSubject(subjects.ElementAt(selection-1));
+					generator.SetSubject(subjects.ElementAt(selection - 1));
 					chosenSubject = true;
-				} catch (Exception) {
+				}
+				catch (Exception)
+				{
 					Console.WriteLine(Constants.StrInvalidValue);
 				}
 			}
